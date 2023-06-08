@@ -1,4 +1,4 @@
-package dev.davidodari.androidtmdb.ui.theme
+package dev.davidodari.androidtmdb.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
