@@ -5,5 +5,5 @@ import dev.davidodari.androidtmdb.core.model.Movie
 
 interface GetLatestMovieDetailsUseCase {
 
-    suspend fun invoke(movieId: Int): Result<Movie>
+    suspend operator fun invoke(movieId: Int): Result<Movie>
 }
