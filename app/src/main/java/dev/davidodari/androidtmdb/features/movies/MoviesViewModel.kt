@@ -48,7 +48,7 @@ class MoviesViewModel @Inject constructor(
             is Result.Error -> {
                 setState {
                     onError(
-                        errorMsg = mapErrorTypeToResourceId(result.errorType)
+                        errorMsg = result.errorType.toStringResource()
                     )
                 }
             }
