@@ -1,3 +1,5 @@
+import java.util.Properties
+
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.com.android.application)
@@ -6,6 +8,12 @@ plugins {
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.org.jetbrains.kotlin.plugin.serialization)
 }
+
+val localProperties = Properties().apply {
+    load(rootProject.file("local.properties").inputStream())
+}
+
+val TMDB_ACCESS_TOKEN = localProperties.getProperty("TMDB_ACCESS_TOKEN")
 
 android {
     namespace = "dev.davidodari.androidtmdb"
@@ -22,6 +30,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField("String", "TMDB_ACCESS_TOKEN", "\"$TMDB_ACCESS_TOKEN\"")
     }
 
     buildTypes {

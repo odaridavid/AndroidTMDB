@@ -1,9 +1,10 @@
 package dev.davidodari.androidtmdb.core.api
 
-import dev.davidodari.androidtmdb.core.model.Movie
+import dev.davidodari.androidtmdb.core.Result
+import dev.davidodari.androidtmdb.core.model.Movies
 
 interface MovieRepository {
 
-    fun fetchLatestMovies() : Result<List<Movie>>
+    suspend fun fetchLatestMovies(): Result<Movies>
 
 }

@@ -1,14 +1,13 @@
 package dev.davidodari.androidtmdb.di
 
-import android.content.Context
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import dev.davidodari.androidtmdb.BuildConfig
-import dev.davidodari.androidtmdb.data.movies.MoviesApiService
+import dev.davidodari.androidtmdb.data.HeadersInterceptor
+import dev.davidodari.androidtmdb.data.movies.remote.MoviesApiService
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -32,7 +31,7 @@ object ClientModule {
     fun provideRetrofit(okHttpClient: OkHttpClient,json: Json): Retrofit {
         val contentType = "application/json".toMediaType()
         return Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/3/")
+            .baseUrl("https://api.themoviedb.org/3")
             .client(okHttpClient)
             .addConverterFactory(json.asConverterFactory(contentType))
             .build()
@@ -42,10 +41,12 @@ object ClientModule {
     @Singleton
     fun provideOkhttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
+        headersInterceptor: HeadersInterceptor
     ): OkHttpClient =
         OkHttpClient.Builder()
             .connectTimeout(60L, TimeUnit.SECONDS)
             .addInterceptor(loggingInterceptor)
+            .addInterceptor(headersInterceptor)
             .build()
 
     @Provides
