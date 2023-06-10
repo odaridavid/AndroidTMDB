@@ -3,7 +3,6 @@ package dev.davidodari.androidtmdb.features.movies
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.davidodari.androidtmdb.core.api.MovieRepository
 import dev.davidodari.androidtmdb.core.model.Movies
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,24 +10,25 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import dev.davidodari.androidtmdb.core.Result
+import dev.davidodari.androidtmdb.core.usecases.GetLatestMoviesListUseCase
 
 @HiltViewModel
 class MoviesViewModel @Inject constructor(
-    private val movieRepository: MovieRepository
+    private val getLatestMoviesListUseCase: GetLatestMoviesListUseCase
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(MovieScreenState(isLoading = true))
-    val state: StateFlow<MovieScreenState> = _state.asStateFlow()
+    private val _state = MutableStateFlow(MoviesScreenState(isLoading = true))
+    val state: StateFlow<MoviesScreenState> = _state.asStateFlow()
 
     init {
-        processIntent(MovieScreenIntent.LoadLatestMovies)
+        processIntent(MoviesScreenIntent.LoadLatestMovies)
     }
 
-    fun processIntent(movieScreenIntent: MovieScreenIntent) {
+    private fun processIntent(movieScreenIntent: MoviesScreenIntent) {
         when (movieScreenIntent) {
-            is MovieScreenIntent.LoadLatestMovies -> {
+            is MoviesScreenIntent.LoadLatestMovies -> {
                 viewModelScope.launch {
-                    val result = movieRepository.fetchLatestMovies()
+                    val result = getLatestMoviesListUseCase()
                     processResult(result)
                 }
             }
@@ -40,19 +40,14 @@ class MoviesViewModel @Inject constructor(
             is Result.Success -> {
                 val movies = result.data
                 setState {
-                    copy(
-                        //todo fix naming here
-                        movies = movies.movies,
-                        isLoading = false,
-                        errorMsg = null
-                    )
+                    //todo fix naming here
+                    onMoviesLoaded(movies = movies.movies)
                 }
             }
 
             is Result.Error -> {
                 setState {
-                    copy(
-                        isLoading = false,
+                    onError(
                         errorMsg = mapErrorTypeToResourceId(result.errorType)
                     )
                 }
@@ -60,7 +55,7 @@ class MoviesViewModel @Inject constructor(
         }
     }
 
-    private fun setState(stateReducer: MovieScreenState.() -> MovieScreenState) {
+    private fun setState(stateReducer: MoviesScreenState.() -> MoviesScreenState) {
         viewModelScope.launch {
             _state.emit(stateReducer(state.value))
         }

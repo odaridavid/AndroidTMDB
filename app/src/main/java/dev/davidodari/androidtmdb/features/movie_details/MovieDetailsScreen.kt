@@ -3,6 +3,6 @@ package dev.davidodari.androidtmdb.features.movie_details
 import androidx.compose.runtime.Composable
 
 @Composable
-fun MovieDetailsScreen() {
+fun MovieDetailsScreen(state: MovieDetailsScreenState) {
 
 }
