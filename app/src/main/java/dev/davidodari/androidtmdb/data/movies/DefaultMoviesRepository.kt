@@ -11,14 +11,13 @@ class DefaultMoviesRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource
 ) : MovieRepository {
 
-    override suspend fun fetchLatestMovies(): Result<Movies> {
-        return try {
+    override suspend fun fetchLatestMovies(): Result<Movies> =
+        try {
             val latestMovies = remoteDataSource.getLatestMovies()
             Result.Success(latestMovies)
         } catch (e: Exception) {
             val errorType = mapThrowableToErrorType(e)
             Result.Error(errorType)
         }
-    }
 
 }
