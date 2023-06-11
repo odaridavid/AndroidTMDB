@@ -10,4 +10,5 @@
     <string name="latest_movies">Latest Movies</string>
     <string name="movie_details_release_date">Release Date: %1$s</string>
     <string name="error_retry">Retry</string>
+    <string name="movie_list_no_movies">Seems there are no movies at this time, try again later</string>
 </resources>

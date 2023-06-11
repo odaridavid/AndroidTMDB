@@ -31,15 +31,15 @@ TMDB_KEY=YOUR_API_KEY
 
 ### Screenshots(Light Theme)
 
-| Movie List | Movie Details |
-|------------|---------------|
-|![Movie List](screenshots/movie_list.png)|![Movie Details](screenshots/movie_details.png)|
+| Movie List | Movie Details | Empty State                                 |
+|------------|---------------|---------------------------------------------|
+|![Movie List](screenshots/movie_list.png)|![Movie Details](screenshots/movie_details.png)| ![Empty State](screenshots/empty_light.png) |
 
 ### Screenshots(Dark Theme)
 
-| Movie List                                     | Movie Details                                        |
-|------------------------------------------------|------------------------------------------------------|
-| ![Movie List](screenshots/movie_list_dark.png) | ![Movie Details](screenshots/movie_details_dark.png) |
+| Movie List                                     | Movie Details                                        | Empty State                                          |
+|------------------------------------------------|------------------------------------------------------|------------------------------------------------------------|
+| ![Movie List](screenshots/movie_list_dark.png) | ![Movie Details](screenshots/movie_details_dark.png) |![Empty State](screenshots/empty_dark.png) |
 
 
 
