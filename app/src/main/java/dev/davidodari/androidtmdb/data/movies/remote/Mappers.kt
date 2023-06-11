@@ -7,6 +7,7 @@ import dev.davidodari.androidtmdb.core.model.Movie
 import dev.davidodari.androidtmdb.core.model.Movies
 import dev.davidodari.androidtmdb.core.model.ServerException
 import dev.davidodari.androidtmdb.core.model.UnauthorizedException
+import dev.davidodari.androidtmdb.data.ApiConfigs
 import java.io.IOException
 import java.net.HttpURLConnection
 
@@ -21,7 +22,7 @@ fun MovieResponse.toDomainModel(): Movie = Movie(
     id = id,
     title = title,
     overview = overview,
-    posterPath = posterPath,
+    posterPath = "${ApiConfigs.Images.BASE_URL}${ApiConfigs.Images.IMAGE_SIZE_W185}$posterPath",
     backdropPath = backdropPath,
     releaseDate = releaseDate
 )

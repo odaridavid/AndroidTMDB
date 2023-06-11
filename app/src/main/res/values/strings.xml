@@ -7,4 +7,5 @@
     <string name="error_generic">Something is happening that\'s disturbing the force :(</string>
     <string name="error_connection">Check your internet connection and try again</string>
     <string name="error_movie_not_found">It seems that movie doesn\'t exist on our end :(</string>
+    <string name="latest_movies">Latest Movies</string>
 </resources>

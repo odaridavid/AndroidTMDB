@@ -9,7 +9,7 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
-import dev.davidodari.androidtmdb.theme.AndroidTMDBTheme
+import dev.davidodari.androidtmdb.designsystem.theme.AndroidTMDBTheme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
