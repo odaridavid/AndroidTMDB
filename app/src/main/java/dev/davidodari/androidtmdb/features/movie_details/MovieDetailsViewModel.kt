@@ -41,8 +41,8 @@ class MovieDetailsViewModel @Inject constructor(
                         movieId = movie.id,
                         title = movie.title,
                         overview = movie.overview,
-                        posterPath = movie.posterPath,
-                        backdropPath = movie.backdropPath,
+                        posterUrl = movie.posterUrl,
+                        backdropUrl = movie.backdropUrl,
                         releaseDate = movie.releaseDate
                     )
                 }

@@ -22,8 +22,8 @@ fun MovieResponse.toDomainModel(): Movie = Movie(
     id = id,
     title = title,
     overview = overview,
-    posterPath = "${ApiConfigs.Images.BASE_URL}${ApiConfigs.Images.IMAGE_SIZE_W185}$posterPath",
-    backdropPath = backdropPath,
+    posterUrl = "${ApiConfigs.Images.BASE_URL}${ApiConfigs.Images.IMAGE_SIZE_W185}$posterPath",
+    backdropUrl = "${ApiConfigs.Images.BASE_URL}${ApiConfigs.Images.IMAGE_SIZE_W780}$backdropPath",
     releaseDate = releaseDate
 )
 

@@ -9,7 +9,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import dev.davidodari.androidtmdb.R
@@ -47,7 +46,7 @@ fun MovieItem(movie: Movie,onMovieSelected: (Movie) -> Unit) {
     ) {
         Row {
             MovieListPoster(
-                posterUrl = movie.posterPath,
+                posterUrl = movie.posterUrl,
                 modifier = Modifier.padding(Padding.Medium)
             )
             Column {

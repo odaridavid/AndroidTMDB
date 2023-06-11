@@ -4,7 +4,7 @@ data class Movie(
     val id: Int,
     val title: String,
     val overview: String,
-    val posterPath: String,
-    val backdropPath: String,
+    val posterUrl: String,
+    val backdropUrl: String,
     val releaseDate: String
 )
