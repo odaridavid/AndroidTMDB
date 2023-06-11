@@ -7,7 +7,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dev.davidodari.androidtmdb.core.api.MovieRepository
 import dev.davidodari.androidtmdb.data.movies.remote.DefaultRemoteDataSource
-import dev.davidodari.androidtmdb.data.movies.remote.RemoteDataSource
+import dev.davidodari.androidtmdb.data.movies.remote.api.RemoteDataSource
 
 @Module
 @InstallIn(ViewModelComponent::class)

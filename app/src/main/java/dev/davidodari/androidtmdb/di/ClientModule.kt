@@ -6,8 +6,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.davidodari.androidtmdb.BuildConfig
-import dev.davidodari.androidtmdb.data.HeadersInterceptor
-import dev.davidodari.androidtmdb.data.movies.remote.MoviesApiService
+import dev.davidodari.androidtmdb.data.movies.remote.utils.HeadersInterceptor
+import dev.davidodari.androidtmdb.data.movies.remote.api.MoviesApiService
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType

@@ -1,4 +1,4 @@
-package dev.davidodari.androidtmdb.data
+package dev.davidodari.androidtmdb.data.movies.remote.utils
 
 import dev.davidodari.androidtmdb.BuildConfig
 import okhttp3.Interceptor

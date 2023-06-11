@@ -1,4 +1,4 @@
-package dev.davidodari.androidtmdb.data.movies.remote
+package dev.davidodari.androidtmdb.data.movies.remote.api
 
 import dev.davidodari.androidtmdb.data.movies.remote.models.MoviesResponse
 import retrofit2.Response

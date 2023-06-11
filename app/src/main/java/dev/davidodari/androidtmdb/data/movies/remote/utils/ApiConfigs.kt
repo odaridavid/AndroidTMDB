@@ -1,4 +1,4 @@
-package dev.davidodari.androidtmdb.data
+package dev.davidodari.androidtmdb.data.movies.remote.utils
 
 // TODO Use api call for this.
  object ApiConfigs {
