@@ -25,7 +25,7 @@ class MoviesViewModel @Inject constructor(
         processIntent(MoviesScreenIntent.LoadLatestMovies)
     }
 
-    private fun processIntent(movieScreenIntent: MoviesScreenIntent) {
+    fun processIntent(movieScreenIntent: MoviesScreenIntent) {
         when (movieScreenIntent) {
             is MoviesScreenIntent.LoadLatestMovies -> {
                 viewModelScope.launch {

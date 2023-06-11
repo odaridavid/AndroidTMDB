@@ -11,6 +11,7 @@ import dev.davidodari.androidtmdb.features.movie_details.MovieDetailsScreenInten
 import dev.davidodari.androidtmdb.features.movies.MoviesScreen
 import dev.davidodari.androidtmdb.features.movies.MoviesViewModel
 import dev.davidodari.androidtmdb.features.movie_details.MovieDetailsViewModel
+import dev.davidodari.androidtmdb.features.movies.MoviesScreenIntent
 
 @Composable
 fun AppNavigationGraph(
@@ -20,9 +21,16 @@ fun AppNavigationGraph(
         composable(Destinations.MOVIES.route) {
             val viewModel = hiltViewModel<MoviesViewModel>()
             viewModel.state.collectAsState().value.let { state ->
-                MoviesScreen(state) { movie ->
-                    navController.navigate("${Destinations.MOVIE_DETAILS.route}/${movie.id}")
-                }
+                MoviesScreen(
+                    state = state,
+                    onMovieSelected = { movie ->
+                        // TODO Have navigation intent
+                        navController.navigate("${Destinations.MOVIE_DETAILS.route}/${movie.id}")
+                    },
+                    onErrorAction = {
+                        viewModel.processIntent(MoviesScreenIntent.LoadLatestMovies)
+                    }
+                )
             }
         }
         composable(Destinations.MOVIE_DETAILS.route + "/{movieId}") { navBackStackEntry ->
@@ -30,10 +38,16 @@ fun AppNavigationGraph(
             requireNotNull(movieId)
 
             val viewModel = hiltViewModel<MovieDetailsViewModel>()
+
             viewModel.processIntent(MovieDetailsScreenIntent.LoadMovieDetail(movieId))
 
             viewModel.state.collectAsState().value.let { state ->
-                MovieDetailsScreen(state)
+                MovieDetailsScreen(
+                    state = state,
+                    onErrorAction = {
+                        viewModel.processIntent(MovieDetailsScreenIntent.LoadMovieDetail(movieId))
+                    }
+                )
             }
         }
     }

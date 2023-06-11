@@ -14,22 +14,38 @@ import androidx.compose.ui.res.stringResource
 import dev.davidodari.androidtmdb.R
 import dev.davidodari.androidtmdb.core.model.Movie
 import dev.davidodari.androidtmdb.designsystem.theme.Padding
+import dev.davidodari.androidtmdb.designsystem.widgets.CircleLoadingIndicator
+import dev.davidodari.androidtmdb.designsystem.widgets.ErrorScreen
 import dev.davidodari.androidtmdb.designsystem.widgets.Headline
 import dev.davidodari.androidtmdb.designsystem.widgets.MovieListDescription
 import dev.davidodari.androidtmdb.designsystem.widgets.MovieListPoster
 import dev.davidodari.androidtmdb.designsystem.widgets.MovieListTitle
 
 @Composable
-fun MoviesScreen(state: MoviesScreenState, onMovieSelected: (Movie) -> Unit) {
+fun MoviesScreen(
+    state: MoviesScreenState,
+    onMovieSelected: (Movie) -> Unit,
+    onErrorAction: () -> Unit
+) {
     Column {
         Headline(
             title = stringResource(R.string.latest_movies),
             modifier = Modifier.padding(Padding.Medium)
         )
-        LazyColumn {
-            items(state.movies) { movie ->
-                MovieItem(movie = movie){ selectedMovie ->
-                    onMovieSelected(selectedMovie)}
+
+        if (state.isLoading) {
+            CircleLoadingIndicator()
+        } else if (state.errorMsg != null) {
+            ErrorScreen(errorMsg = state.errorMsg, errorActionTitle = R.string.error_retry) {
+                onErrorAction()
+            }
+        } else {
+            LazyColumn {
+                items(state.movies) { movie ->
+                    MovieItem(movie = movie) { selectedMovie ->
+                        onMovieSelected(selectedMovie)
+                    }
+                }
             }
         }
     }
@@ -37,7 +53,7 @@ fun MoviesScreen(state: MoviesScreenState, onMovieSelected: (Movie) -> Unit) {
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun MovieItem(movie: Movie,onMovieSelected: (Movie) -> Unit) {
+fun MovieItem(movie: Movie, onMovieSelected: (Movie) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
