@@ -19,7 +19,18 @@ TMDB_KEY=YOUR_API_KEY
 
 ### Extras
 
-### Screenshots
+
+### Todos
+
+- Implement a search feature
+- Implement a favorites feature
+- Setup a CI/CD pipeline with release & debug builds, code coverage, linting, and static analysis
+- Implement local caching of data using Room.
+
+
+### Screenshots(Light Theme)
+
+### Screenshots(Dark Theme)
 
 ![Gifs]()
 

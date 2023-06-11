@@ -2,6 +2,7 @@ package dev.davidodari.androidtmdb.features.movies
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -9,6 +10,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import dev.davidodari.androidtmdb.R
@@ -27,14 +29,17 @@ fun MoviesScreen(
     onMovieSelected: (Movie) -> Unit,
     onErrorAction: () -> Unit
 ) {
-    Column {
+    Column(modifier = Modifier.fillMaxWidth()) {
         Headline(
             title = stringResource(R.string.latest_movies),
             modifier = Modifier.padding(Padding.Medium)
         )
 
+        // TODO Animate state changes
         if (state.isLoading) {
-            CircleLoadingIndicator()
+            Spacer(modifier = Modifier.weight(0.5f))
+            CircleLoadingIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
+            Spacer(modifier = Modifier.weight(0.5f))
         } else if (state.errorMsg != null) {
             ErrorScreen(errorMsg = state.errorMsg, errorActionTitle = R.string.error_retry) {
                 onErrorAction()
@@ -76,6 +81,5 @@ fun MovieItem(movie: Movie, onMovieSelected: (Movie) -> Unit) {
                 )
             }
         }
-
     }
 }

@@ -18,6 +18,8 @@ import dev.davidodari.androidtmdb.designsystem.widgets.MovieDetailsReleaseDate
 import dev.davidodari.androidtmdb.designsystem.widgets.MovieDetailsTitle
 
 // TODO Navigate Back
+// TODO Show poster on the side of title.
+// TODO Animate state changes
 @Composable
 fun MovieDetailsScreen(state: MovieDetailsScreenState, onErrorAction: () -> Unit) {
     if (state.isLoading) {
