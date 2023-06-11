@@ -2,6 +2,7 @@ package dev.davidodari.androidtmdb
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -17,7 +18,7 @@ fun AppNavigation(
 ) {
     NavHost(navController = navController, startDestination = Destinations.MOVIES.route) {
         composable(Destinations.MOVIES.route) {
-            val viewModel = viewModel<MoviesViewModel>()
+            val viewModel = hiltViewModel<MoviesViewModel>()
             viewModel.state.collectAsState().value.let { state ->
                 MoviesScreen(state) { movie ->
                     // TODO: Handle navigation
@@ -25,7 +26,7 @@ fun AppNavigation(
             }
         }
         composable(Destinations.MOVIE_DETAILS.route) {
-            val viewModel = viewModel<MovieDetailsViewModel>()
+            val viewModel = hiltViewModel<MovieDetailsViewModel>()
             viewModel.state.collectAsState().value.let { state ->
                 MovieDetailsScreen(state)
             }

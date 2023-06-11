@@ -1,4 +1,4 @@
-package dev.davidodari.androidtmdb.features.movies
+package dev.davidodari.androidtmdb.common
 
 import androidx.annotation.StringRes
 import dev.davidodari.androidtmdb.R

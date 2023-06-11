@@ -9,7 +9,7 @@ class DefaultGetLatestMovieListUseCase @Inject constructor(
     private val movieRepository: MovieRepository
 ) : GetLatestMoviesListUseCase {
 
-    override suspend fun invoke(): Result<Movies> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun invoke(): Result<Movies> =
+        movieRepository.fetchLatestMovies()
+
 }

@@ -19,6 +19,7 @@ compose-navigation = "2.5.3"
 
 # DI
 hilt = "2.45"
+hilt-nav-compose = "1.0.0"
 
 # Async
 retrofit = "2.9.0"
@@ -54,6 +55,7 @@ compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 #DI
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
+hilt-nav-compose = {group="androidx.hilt", name="hilt-navigation-compose", version.ref="hilt-nav-compose"}
 compose-viewmodel-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle-viewmodel-compose" }
 
 # Async

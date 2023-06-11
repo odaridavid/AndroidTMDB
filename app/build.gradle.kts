@@ -84,6 +84,7 @@ dependencies {
     // DI
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+    implementation(libs.hilt.nav.compose)
 
     // Test
     testImplementation(libs.junit)

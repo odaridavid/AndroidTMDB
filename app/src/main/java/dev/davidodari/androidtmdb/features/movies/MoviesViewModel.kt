@@ -3,6 +3,7 @@ package dev.davidodari.androidtmdb.features.movies
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.davidodari.androidtmdb.common.toStringResource
 import dev.davidodari.androidtmdb.core.model.Movies
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

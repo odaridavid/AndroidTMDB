@@ -3,14 +3,10 @@ package dev.davidodari.androidtmdb.features.movie_details
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.davidodari.androidtmdb.common.toStringResource
 import dev.davidodari.androidtmdb.core.Result
-import dev.davidodari.androidtmdb.core.api.MovieRepository
 import dev.davidodari.androidtmdb.core.model.Movie
-import dev.davidodari.androidtmdb.core.model.Movies
 import dev.davidodari.androidtmdb.core.usecases.GetLatestMovieDetailsUseCase
-import dev.davidodari.androidtmdb.features.movies.MoviesScreenIntent
-import dev.davidodari.androidtmdb.features.movies.MoviesScreenState
-import dev.davidodari.androidtmdb.features.movies.mapErrorTypeToResourceId
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -54,7 +50,7 @@ class MovieDetailsViewModel @Inject constructor(
 
             is Result.Error -> {
                 setState {
-                    onError(errorMsg = mapErrorTypeToResourceId(result.errorType))
+                    onError(errorMsg = result.errorType.toStringResource())
                 }
             }
         }
