@@ -2,6 +2,7 @@ package dev.davidodari.androidtmdb
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -15,9 +16,10 @@ import dev.davidodari.androidtmdb.features.movies.MoviesScreenIntent
 
 @Composable
 fun AppNavigationGraph(
-    navController: NavHostController
+    navController: NavHostController,
+    modifier: Modifier = Modifier
 ) {
-    NavHost(navController = navController, startDestination = Destinations.MOVIES.route) {
+    NavHost(navController = navController, startDestination = Destinations.MOVIES.route, modifier) {
         composable(Destinations.MOVIES.route) {
             val viewModel = hiltViewModel<MoviesViewModel>()
             viewModel.state.collectAsState().value.let { state ->
@@ -46,6 +48,9 @@ fun AppNavigationGraph(
                     state = state,
                     onErrorAction = {
                         viewModel.processIntent(MovieDetailsScreenIntent.LoadMovieDetail(movieId))
+                    },
+                    onBackPressed = {
+                        navController.popBackStack()
                     }
                 )
             }

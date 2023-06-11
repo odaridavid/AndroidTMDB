@@ -22,17 +22,25 @@ TMDB_KEY=YOUR_API_KEY
 
 ### Todos
 
-- Implement a search feature
-- Implement a favorites feature
+- Implement a search feature.
+- Implement a favorites feature.
 - Setup a CI/CD pipeline with release & debug builds, code coverage, linting, and static analysis
 - Implement local caching of data using Room.
+- Animation of the UI.
 
 
 ### Screenshots(Light Theme)
 
+| Movie List | Movie Details |
+|------------|---------------|
+|![Movie List](screenshots/movie_list.png)|![Movie Details](screenshots/movie_details.png)|
+
 ### Screenshots(Dark Theme)
 
-![Gifs]()
+| Movie List                                     | Movie Details                                        |
+|------------------------------------------------|------------------------------------------------------|
+| ![Movie List](screenshots/movie_list_dark.png) | ![Movie Details](screenshots/movie_details_dark.png) |
+
 
 
 ### LICENSE
