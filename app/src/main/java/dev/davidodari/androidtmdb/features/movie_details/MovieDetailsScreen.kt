@@ -1,6 +1,7 @@
 package dev.davidodari.androidtmdb.features.movie_details
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -12,6 +13,7 @@ import dev.davidodari.androidtmdb.R
 import dev.davidodari.androidtmdb.designsystem.theme.Padding
 import dev.davidodari.androidtmdb.designsystem.widgets.CircleLoadingIndicator
 import dev.davidodari.androidtmdb.designsystem.widgets.ErrorScreen
+import dev.davidodari.androidtmdb.designsystem.widgets.LoadingScreen
 import dev.davidodari.androidtmdb.designsystem.widgets.MovieDetailsBackDrop
 import dev.davidodari.androidtmdb.designsystem.widgets.MovieDetailsDescription
 import dev.davidodari.androidtmdb.designsystem.widgets.MovieDetailsReleaseDate
@@ -26,16 +28,18 @@ fun MovieDetailsScreen(
     onErrorAction: () -> Unit,
     onBackPressed: () -> Unit
 ) {
-    Scaffold(topBar = { TopBar(onBackPressed = onBackPressed) }) { padding ->
+    Scaffold(
+        topBar = {
+            TopBar(onBackPressed = onBackPressed)
+        }
+    ) { padding ->
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(padding)
         ) {
             if (state.isLoading) {
-                Spacer(modifier = Modifier.weight(0.5f))
-                CircleLoadingIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
-                Spacer(modifier = Modifier.weight(0.5f))
+                LoadingScreen()
             } else if (state.errorMsg != null) {
                 ErrorScreen(errorMsg = state.errorMsg, errorActionTitle = R.string.error_retry) {
                     onErrorAction()
@@ -49,7 +53,6 @@ fun MovieDetailsScreen(
 
 @Composable
 private fun MovieDetailsContent(state: MovieDetailsScreenState) {
-
     state.backdropUrl?.let { backDrop ->
         MovieDetailsBackDrop(
             backDropUrl = backDrop,

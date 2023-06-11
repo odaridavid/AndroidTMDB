@@ -16,7 +16,7 @@ class DefaultMoviesRepository @Inject constructor(
         try {
             val latestMovies = remoteDataSource.getLatestMovies()
             Result.Success(latestMovies)
-        } catch (e: Exception) {
+        } catch (e: Throwable) {
             val errorType = mapThrowableToErrorType(e)
             Result.Error(errorType)
         }

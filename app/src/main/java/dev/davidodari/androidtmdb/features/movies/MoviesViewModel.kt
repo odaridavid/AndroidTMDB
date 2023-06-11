@@ -39,10 +39,9 @@ class MoviesViewModel @Inject constructor(
     private fun processResult(result: Result<Movies>) {
         when (result) {
             is Result.Success -> {
-                val movies = result.data
+                val movies = result.data.movies
                 setState {
-                    //todo fix naming here
-                    onMoviesLoaded(movies = movies.movies)
+                    onMoviesLoaded(movies = movies)
                 }
             }
 

@@ -16,6 +16,7 @@ import java.net.HttpURLConnection
 fun MoviesResponse.toDomainModel(): Movies =
     Movies(
         currentPage = page,
+        totalPages = totalPages,
         movies = results.map { it.toDomainModel() }
     )
 

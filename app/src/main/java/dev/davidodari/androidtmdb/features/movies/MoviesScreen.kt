@@ -23,6 +23,7 @@ import dev.davidodari.androidtmdb.designsystem.widgets.CircleLoadingIndicator
 import dev.davidodari.androidtmdb.designsystem.widgets.ErrorScreen
 import dev.davidodari.androidtmdb.designsystem.widgets.Headline
 import dev.davidodari.androidtmdb.designsystem.widgets.InfoText
+import dev.davidodari.androidtmdb.designsystem.widgets.LoadingScreen
 import dev.davidodari.androidtmdb.designsystem.widgets.MovieListDescription
 import dev.davidodari.androidtmdb.designsystem.widgets.MovieListPoster
 import dev.davidodari.androidtmdb.designsystem.widgets.MovieListTitle
@@ -68,13 +69,6 @@ private fun MovieListContent(
             }
         }
     }
-}
-
-@Composable
-private fun ColumnScope.LoadingScreen() {
-    Spacer(modifier = Modifier.Companion.weight(0.5f))
-    CircleLoadingIndicator(modifier = Modifier.Companion.align(Alignment.CenterHorizontally))
-    Spacer(modifier = Modifier.Companion.weight(0.5f))
 }
 
 @OptIn(ExperimentalMaterialApi::class)
