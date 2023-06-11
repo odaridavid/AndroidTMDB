@@ -8,6 +8,8 @@ import dev.davidodari.androidtmdb.core.model.Movies
 import dev.davidodari.androidtmdb.core.model.ServerException
 import dev.davidodari.androidtmdb.core.model.UnauthorizedException
 import dev.davidodari.androidtmdb.data.ApiConfigs
+import dev.davidodari.androidtmdb.data.movies.remote.models.MovieResponse
+import dev.davidodari.androidtmdb.data.movies.remote.models.MoviesResponse
 import java.io.IOException
 import java.net.HttpURLConnection
 

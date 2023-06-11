@@ -1,6 +1,10 @@
 package dev.davidodari.androidtmdb.data.movies.remote
 
+import android.util.Log
 import dev.davidodari.androidtmdb.core.model.Movies
+import dev.davidodari.androidtmdb.data.movies.remote.models.ReleaseDateRange
+import dev.davidodari.androidtmdb.data.movies.remote.models.ReleaseDateRangeFilterGenerator
+import dev.davidodari.androidtmdb.data.movies.remote.models.SortOptions
 import javax.inject.Inject
 
 class DefaultRemoteDataSource @Inject constructor(
@@ -9,20 +13,18 @@ class DefaultRemoteDataSource @Inject constructor(
 
     override suspend fun getLatestMovies(): Movies {
         return try {
-            // TODO move this elsewhere
+            // TODO make this part of user preference
             val language = "en-US"
+            val sortBy = SortOptions.POPULARITY.value
             val page = 1
-            // TODO Create sorting option enum
-            val sortBy = "popularity.desc"
-            // TODO Create date utils for date formatting, start at new year and end at current month + date
-            val releaseDateEnd = "2023-06-30"
-            val releaseDateStart = "2023-01-31"
+            val releaseDateRange = ReleaseDateRangeFilterGenerator.generateReleaseDateRange()
+
             val response = openWeatherService.getLatestMovies(
                 language = language,
                 page = page,
                 sortBy = sortBy,
-                releaseDateEnd = releaseDateEnd,
-                releaseDateStart = releaseDateStart
+                releaseDateEnd = releaseDateRange.to,
+                releaseDateStart = releaseDateRange.from
             )
             if (response.isSuccessful && response.body() != null) {
                 response.body()!!.toDomainModel()
@@ -34,5 +36,4 @@ class DefaultRemoteDataSource @Inject constructor(
             throw exception
         }
     }
-
 }

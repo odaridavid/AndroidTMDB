@@ -1,4 +1,4 @@
-package dev.davidodari.androidtmdb.data.movies.remote
+package dev.davidodari.androidtmdb.data.movies.remote.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

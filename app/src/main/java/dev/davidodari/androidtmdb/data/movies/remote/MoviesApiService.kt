@@ -1,5 +1,6 @@
 package dev.davidodari.androidtmdb.data.movies.remote
 
+import dev.davidodari.androidtmdb.data.movies.remote.models.MoviesResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
