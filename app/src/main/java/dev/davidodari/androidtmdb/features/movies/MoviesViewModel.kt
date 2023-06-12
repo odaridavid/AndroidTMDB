@@ -7,6 +7,7 @@ import dev.davidodari.androidtmdb.common.toStringResource
 import dev.davidodari.androidtmdb.core.Result
 import dev.davidodari.androidtmdb.core.model.Movies
 import dev.davidodari.androidtmdb.core.usecases.GetLatestMoviesListUseCase
+import dev.davidodari.androidtmdb.core.usecases.SearchMoviesByTitleUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MoviesViewModel @Inject constructor(
-    private val getLatestMoviesListUseCase: GetLatestMoviesListUseCase
+    private val getLatestMoviesListUseCase: GetLatestMoviesListUseCase,
+    private val searchMoviesByTitleUseCase: SearchMoviesByTitleUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(MoviesScreenState(isLoading = true))
@@ -30,6 +32,12 @@ class MoviesViewModel @Inject constructor(
             is MoviesScreenIntent.LoadLatestMovies -> {
                 viewModelScope.launch {
                     val result = getLatestMoviesListUseCase()
+                    processResult(result)
+                }
+            }
+            is MoviesScreenIntent.SearchMovies -> {
+                viewModelScope.launch {
+                    val result = searchMoviesByTitleUseCase(movieScreenIntent.query)
                     processResult(result)
                 }
             }

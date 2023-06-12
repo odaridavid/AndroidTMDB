@@ -13,6 +13,8 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import org.junit.Test
 import dev.davidodari.androidtmdb.core.Result
+import dev.davidodari.androidtmdb.core.usecases.DefaultSearchMoviesByTitleUseCase
+import dev.davidodari.androidtmdb.core.usecases.SearchMoviesByTitleUseCase
 import dev.davidodari.androidtmdb.fakeSuccessMappedResponse
 import dev.davidodari.androidtmdb.features.movies.MoviesScreenState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -29,10 +31,12 @@ class MoviesViewModelTest {
     fun `when we init the viewmodel, then display loading state`() = runTest {
         val movieRepository = mockk<MovieRepository>()
 
-        val useCase = DefaultGetLatestMovieListUseCase(movieRepository = movieRepository)
+        val movieListUseCase = DefaultGetLatestMovieListUseCase(movieRepository = movieRepository)
+        val searchUseCase = DefaultSearchMoviesByTitleUseCase(moviesRepository = movieRepository)
 
         val viewModel = createViewModel(
-            getLatestMoviesListUseCase = useCase
+            getLatestMoviesListUseCase = movieListUseCase,
+            searchMoviesByTitleUseCase = searchUseCase
         )
 
         val expectedState = MoviesScreenState(
@@ -53,10 +57,13 @@ class MoviesViewModelTest {
         val movieRepository = mockk<MovieRepository> {
             coEvery { fetchLatestMovies() } returns Result.Success(fakeSuccessMappedResponse)
         }
-        val useCase = DefaultGetLatestMovieListUseCase(movieRepository = movieRepository)
+
+        val movieListUseCase = DefaultGetLatestMovieListUseCase(movieRepository = movieRepository)
+        val searchUseCase = DefaultSearchMoviesByTitleUseCase(moviesRepository = movieRepository)
 
         val viewModel = createViewModel(
-            getLatestMoviesListUseCase = useCase
+            getLatestMoviesListUseCase = movieListUseCase,
+            searchMoviesByTitleUseCase = searchUseCase
         )
 
         val expectedState = MoviesScreenState(
@@ -73,34 +80,43 @@ class MoviesViewModelTest {
     }
 
     @Test
-    fun `when we init the viewmodel and an error occurs, then display the error screen`() = runTest {
-        val movieRepository = mockk<MovieRepository> {
-            coEvery { fetchLatestMovies() } returns Result.Error(ErrorType.CLIENT)
-        }
-        val useCase = DefaultGetLatestMovieListUseCase(movieRepository = movieRepository)
+    fun `when we init the viewmodel and an error occurs, then display the error screen`() =
+        runTest {
+            val movieRepository = mockk<MovieRepository> {
+                coEvery { fetchLatestMovies() } returns Result.Error(ErrorType.CLIENT)
+            }
+            val movieListUseCase =
+                DefaultGetLatestMovieListUseCase(movieRepository = movieRepository)
+            val searchUseCase =
+                DefaultSearchMoviesByTitleUseCase(moviesRepository = movieRepository)
 
-        val viewModel = createViewModel(
-            getLatestMoviesListUseCase = useCase
-        )
+            val viewModel = createViewModel(
+                getLatestMoviesListUseCase = movieListUseCase,
+                searchMoviesByTitleUseCase = searchUseCase
+            )
 
-        val expectedState = MoviesScreenState(
-            isLoading = false,
-            movies = emptyList(),
-            errorMsg = R.string.error_client
-        )
+            val expectedState = MoviesScreenState(
+                isLoading = false,
+                movies = emptyList(),
+                errorMsg = R.string.error_client
+            )
 
-        viewModel.state.test {
-            awaitItem().also { state ->
-                Truth.assertThat(state).isEqualTo(expectedState)
+            viewModel.state.test {
+                awaitItem().also { state ->
+                    Truth.assertThat(state).isEqualTo(expectedState)
+                }
             }
         }
-    }
 
     // region Helper Methods
 
-    private fun createViewModel(getLatestMoviesListUseCase: GetLatestMoviesListUseCase) =
+    private fun createViewModel(
+        getLatestMoviesListUseCase: GetLatestMoviesListUseCase,
+        searchMoviesByTitleUseCase: SearchMoviesByTitleUseCase
+    ) =
         MoviesViewModel(
-            getLatestMoviesListUseCase = getLatestMoviesListUseCase
+            getLatestMoviesListUseCase = getLatestMoviesListUseCase,
+            searchMoviesByTitleUseCase = searchMoviesByTitleUseCase
         )
     // endregion
 }
