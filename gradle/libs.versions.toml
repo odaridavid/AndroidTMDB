@@ -95,6 +95,5 @@ compose = [
     "compose-preview",
     "compose-material",
     "compose-viewmodel-lifecycle",
-    "compose-navigation",
-    "compose-paging"
+    "compose-navigation"
 ]
