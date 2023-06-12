@@ -17,6 +17,6 @@ data class MovieResponse(
     @SerialName("title") val title: String,
     @SerialName("overview") val overview: String,
     @SerialName("poster_path") val posterPath: String,
-    @SerialName("backdrop_path") val backdropPath: String,
+    @SerialName("backdrop_path") val backdropPath: String?,
     @SerialName("release_date") val releaseDate: String
 )

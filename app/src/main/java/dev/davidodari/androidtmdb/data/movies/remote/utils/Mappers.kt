@@ -36,13 +36,11 @@ fun mapResponseCodeToThrowable(code: Int): Throwable = when (code) {
     else -> GenericException("Generic error : $code")
 }
 
-fun mapThrowableToErrorType(throwable: Throwable): ErrorType {
-    val errorType = when (throwable) {
-        is IOException -> ErrorType.IO_CONNECTION
-        is ClientException -> ErrorType.CLIENT
-        is ServerException -> ErrorType.SERVER
-        is UnauthorizedException -> ErrorType.UNAUTHORIZED
-        else -> ErrorType.GENERIC
-    }
-    return errorType
+fun Throwable.toErrorType(): ErrorType = when (this) {
+    is IOException -> ErrorType.IO_CONNECTION
+    is ClientException -> ErrorType.CLIENT
+    is ServerException -> ErrorType.SERVER
+    is UnauthorizedException -> ErrorType.UNAUTHORIZED
+    else -> ErrorType.GENERIC
 }
+

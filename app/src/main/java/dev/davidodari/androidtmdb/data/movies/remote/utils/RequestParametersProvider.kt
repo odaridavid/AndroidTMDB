@@ -8,6 +8,7 @@ import javax.inject.Inject
 class RequestParametersProvider @Inject constructor() {
 
     private var currentPage = 1
+
     fun getReleaseDateRange(): ReleaseDateRange {
         val currentYear = getCurrentYear()
         val currentMonth = getCurrentMonth().padWithZero()
@@ -22,14 +23,10 @@ class RequestParametersProvider @Inject constructor() {
 
     fun getLanguage(): String = "en-US"
 
-    fun getCurrentLastPage(): Int = currentPage
+    fun getCurrentPage(): Int = currentPage
 
-    fun onNewPageRequested() {
+    fun incrementCurrentPage() {
         currentPage++
-    }
-
-    fun resetPage() {
-        currentPage = 1
     }
 
     private fun getCurrentYear(): Int = Calendar.getInstance().get(Calendar.YEAR)

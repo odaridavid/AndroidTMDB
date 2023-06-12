@@ -1,13 +1,13 @@
 package dev.davidodari.androidtmdb.data.movies
 
+import android.util.Log
 import dev.davidodari.androidtmdb.core.Result
 import dev.davidodari.androidtmdb.core.api.MovieRepository
 import dev.davidodari.androidtmdb.core.model.Movies
 import dev.davidodari.androidtmdb.data.movies.remote.api.RemoteDataSource
-import dev.davidodari.androidtmdb.data.movies.remote.utils.mapThrowableToErrorType
+import dev.davidodari.androidtmdb.data.movies.remote.utils.toErrorType
 import javax.inject.Inject
 
-// TODO implement local data source
 class DefaultMoviesRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource
 ) : MovieRepository {
@@ -17,8 +17,7 @@ class DefaultMoviesRepository @Inject constructor(
             val latestMovies = remoteDataSource.getLatestMovies()
             Result.Success(latestMovies)
         } catch (e: Throwable) {
-            val errorType = mapThrowableToErrorType(e)
-            Result.Error(errorType)
+            Result.Error(e.toErrorType())
         }
 
 }

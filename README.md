@@ -1,6 +1,6 @@
 ## AndroidTMDB App
 
-This is a simple Android app that uses the [TMDB API](https://www.themoviedb.org/documentation/api) to display a list of latest movies and their details.
+This is a simple Android app that uses the [TMDB API](https://www.themoviedb.org/documentation/api) to display a continuous list of latest movies from the beginning of the year to the current date and their details.
 
 *Pre-requisites*
 - Built on A.S Hedgehog 2023.1.1 Canary 7
@@ -50,6 +50,12 @@ The project is currently unit tested on 3 levels
 
 ### Extras
 
+*Pagination*
+
+For now it uses a simple pagination strategy where we maintain a page number and increment it on each request.
+We then store the list in memory in a set and append on each new request for a smooth scrolling experience.
+
+*Design System*
 The design system contains widgets and themes that are used across the app and is built with Compose.
 This provides reusable components that will save development time and also provide a consistent look and feel across the app.
 

@@ -23,7 +23,10 @@ object ClientModule {
 
     @Provides
     @Singleton
-    fun providesJson(): Json = Json { ignoreUnknownKeys = true }
+    fun providesJson(): Json = Json {
+        ignoreUnknownKeys = true
+        coerceInputValues = true
+    }
 
     @OptIn(ExperimentalSerializationApi::class)
     @Provides

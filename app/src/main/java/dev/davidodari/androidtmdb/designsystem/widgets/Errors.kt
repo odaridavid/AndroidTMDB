@@ -2,6 +2,7 @@ package dev.davidodari.androidtmdb.designsystem.widgets
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
@@ -20,6 +21,7 @@ fun ErrorScreen(
     onErrorActionClicked: () -> Unit
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
+        Spacer(modifier =Modifier.weight(0.5f))
         Text(
             text = stringResource(id = errorMsg),
             modifier = Modifier
@@ -34,5 +36,6 @@ fun ErrorScreen(
         ) {
             Text(text = stringResource(id = errorActionTitle))
         }
+        Spacer(modifier =Modifier.weight(0.5f))
     }
 }

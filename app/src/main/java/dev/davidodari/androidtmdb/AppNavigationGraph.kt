@@ -31,6 +31,9 @@ fun AppNavigationGraph(
                     },
                     onErrorAction = {
                         viewModel.processIntent(MoviesScreenIntent.LoadLatestMovies)
+                    },
+                    onLoadMore = {
+                        viewModel.processIntent(MoviesScreenIntent.LoadLatestMovies)
                     }
                 )
             }

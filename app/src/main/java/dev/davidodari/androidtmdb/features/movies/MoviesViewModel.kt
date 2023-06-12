@@ -4,14 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.davidodari.androidtmdb.common.toStringResource
+import dev.davidodari.androidtmdb.core.Result
 import dev.davidodari.androidtmdb.core.model.Movies
+import dev.davidodari.androidtmdb.core.usecases.GetLatestMoviesListUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import dev.davidodari.androidtmdb.core.Result
-import dev.davidodari.androidtmdb.core.usecases.GetLatestMoviesListUseCase
 
 @HiltViewModel
 class MoviesViewModel @Inject constructor(
