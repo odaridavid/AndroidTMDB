@@ -29,12 +29,11 @@ class SearchMoviesByTitleUseCaseTest {
         val useCase = createSearchMoviesByTitleUseCase(mockKMovieRepository)
 
         // when
-        val result = useCase.invoke(query = "Fake")
+        val result = useCase.invoke(query = "The One")
 
         // then
         Truth.assertThat(result).isInstanceOf(Result.Success::class.java)
         Truth.assertThat((result as Result.Success).data.movies).isNotEmpty()
-
     }
 
     @Test
@@ -47,7 +46,6 @@ class SearchMoviesByTitleUseCaseTest {
 
             val useCase = createSearchMoviesByTitleUseCase(mockKMovieRepository)
 
-
             // when
             val result = useCase.invoke(query = "Wrong Title")
 
@@ -58,7 +56,6 @@ class SearchMoviesByTitleUseCaseTest {
 
     private fun createSearchMoviesByTitleUseCase(
         repository: MovieRepository
-    ): SearchMoviesByTitleUseCase {
-        return DefaultSearchMoviesByTitleUseCase(moviesRepository = repository)
-    }
+    ): SearchMoviesByTitleUseCase = DefaultSearchMoviesByTitleUseCase(moviesRepository = repository)
+
 }

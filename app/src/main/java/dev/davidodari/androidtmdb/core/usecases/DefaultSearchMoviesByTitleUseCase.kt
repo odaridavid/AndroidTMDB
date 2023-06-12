@@ -9,8 +9,8 @@ class DefaultSearchMoviesByTitleUseCase @Inject constructor(
     private val moviesRepository: MovieRepository
 ) : SearchMoviesByTitleUseCase {
 
-    override suspend fun invoke(query: String): Result<Movies> {
-        return when (val result = moviesRepository.fetchLatestMovies()) {
+    override suspend fun invoke(query: String): Result<Movies> =
+        when (val result = moviesRepository.fetchLatestMovies()) {
             is Result.Success -> {
                 val movies = result.data
                 val filteredMovies = movies.movies.filter { movie ->
@@ -18,7 +18,8 @@ class DefaultSearchMoviesByTitleUseCase @Inject constructor(
                 }
                 Result.Success(movies.copy(movies = filteredMovies))
             }
+
             is Result.Error -> result
         }
-    }
+
 }

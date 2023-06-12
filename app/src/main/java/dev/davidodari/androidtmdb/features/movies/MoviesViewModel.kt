@@ -8,6 +8,8 @@ import dev.davidodari.androidtmdb.core.Result
 import dev.davidodari.androidtmdb.core.model.Movies
 import dev.davidodari.androidtmdb.core.usecases.GetLatestMoviesListUseCase
 import dev.davidodari.androidtmdb.core.usecases.SearchMoviesByTitleUseCase
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,6 +25,8 @@ class MoviesViewModel @Inject constructor(
     private val _state = MutableStateFlow(MoviesScreenState(isLoading = true))
     val state: StateFlow<MoviesScreenState> = _state.asStateFlow()
 
+    private var searchJob: Job? = null
+
     init {
         processIntent(MoviesScreenIntent.LoadLatestMovies)
     }
@@ -35,8 +39,11 @@ class MoviesViewModel @Inject constructor(
                     processResult(result)
                 }
             }
+
             is MoviesScreenIntent.SearchMovies -> {
-                viewModelScope.launch {
+                searchJob?.cancel()
+                searchJob = viewModelScope.launch {
+                    delay(REQUEST_QUEUE_DELAY)
                     val result = searchMoviesByTitleUseCase(movieScreenIntent.query)
                     processResult(result)
                 }
@@ -67,5 +74,9 @@ class MoviesViewModel @Inject constructor(
         viewModelScope.launch {
             _state.emit(stateReducer(state.value))
         }
+    }
+
+    companion object {
+        private val REQUEST_QUEUE_DELAY = 300L
     }
 }

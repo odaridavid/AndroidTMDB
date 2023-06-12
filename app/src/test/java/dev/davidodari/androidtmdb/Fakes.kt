@@ -11,7 +11,7 @@ val fakeSuccessMovieResponse = MoviesResponse(
     results = listOf(
         MovieResponse(
             id = 1,
-            title = "Fake Movie",
+            title = "The One",
             overview = "Fake Movie Overview",
             posterPath = "/fake_poster_path",
             backdropPath = "/fake_backdrop_path",
@@ -20,7 +20,7 @@ val fakeSuccessMovieResponse = MoviesResponse(
         ),
         MovieResponse(
             id = 2,
-            title = "Fake Movie",
+            title = "That Will",
             overview = "Fake Movie Overview",
             posterPath = "/fake_poster_path",
             backdropPath = "/fake_backdrop_path",
@@ -29,7 +29,7 @@ val fakeSuccessMovieResponse = MoviesResponse(
         ),
         MovieResponse(
             id = 3,
-            title = "Fake Movie",
+            title = "Blow Your Mind",
             overview = "Fake Movie Overview",
             posterPath = "/fake_poster_path",
             backdropPath = "/fake_backdrop_path",
@@ -45,7 +45,7 @@ val fakeSuccessMappedResponse = Movies(
     movies = listOf(
         Movie(
             id = 1,
-            title = "Fake Movie",
+            title = "The One",
             overview = "Fake Movie Overview",
             posterUrl = "https://image.tmdb.org/t/p/w185/fake_poster_path",
             backdropUrl = "https://image.tmdb.org/t/p/w780/fake_backdrop_path",
@@ -53,7 +53,7 @@ val fakeSuccessMappedResponse = Movies(
         ),
         Movie(
             id = 2,
-            title = "Fake Movie",
+            title = "That Will",
             overview = "Fake Movie Overview",
             posterUrl = "https://image.tmdb.org/t/p/w185/fake_poster_path",
             backdropUrl = "https://image.tmdb.org/t/p/w780/fake_backdrop_path",
@@ -61,7 +61,7 @@ val fakeSuccessMappedResponse = Movies(
         ),
         Movie(
             id = 3,
-            title = "Fake Movie",
+            title = "Blow Your Mind",
             overview = "Fake Movie Overview",
             posterUrl = "https://image.tmdb.org/t/p/w185/fake_poster_path",
             backdropUrl = "https://image.tmdb.org/t/p/w780/fake_backdrop_path",
@@ -72,7 +72,7 @@ val fakeSuccessMappedResponse = Movies(
 
 val movie1 = Movie(
     id = 1,
-    title = "Fake Movie",
+    title = "The One",
     overview = "Fake Movie Overview",
     posterUrl = "https://image.tmdb.org/t/p/w185/fake_poster_path",
     backdropUrl = "https://image.tmdb.org/t/p/w780/fake_backdrop_path",
