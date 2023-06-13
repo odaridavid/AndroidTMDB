@@ -22,7 +22,7 @@ class SearchMoviesByTitleUseCaseTest {
     @Test
     fun `when we search for movies by title, then return success`() = runTest {
         // given
-        coEvery { mockKMovieRepository.fetchLatestMovies() } returns Result.Success(
+        coEvery { mockKMovieRepository.fetchLatestMovies(fromCache = true) } returns Result.Success(
             fakeSuccessMappedResponse
         )
 
@@ -40,7 +40,7 @@ class SearchMoviesByTitleUseCaseTest {
     fun `when we search for movies by title and it's not found, then return an empty list`() =
         runTest {
             // given
-            coEvery { mockKMovieRepository.fetchLatestMovies() } returns Result.Success(
+            coEvery { mockKMovieRepository.fetchLatestMovies(fromCache = true) } returns Result.Success(
                 fakeSuccessMappedResponse
             )
 

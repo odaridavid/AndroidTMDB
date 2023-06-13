@@ -2,9 +2,9 @@ package dev.davidodari.androidtmdb.data.movies.remote.utils
 
 import dev.davidodari.androidtmdb.core.model.Movie
 
-object MoviesStore {
+object MoviesPaginationStore {
 
-    val movies = mutableSetOf<Movie>()
+    private val movies = mutableSetOf<Movie>()
 
     fun addMovies(movies: List<Movie>) {
         this.movies.addAll(movies)

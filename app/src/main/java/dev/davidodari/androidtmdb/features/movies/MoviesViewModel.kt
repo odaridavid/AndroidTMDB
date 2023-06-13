@@ -1,5 +1,6 @@
 package dev.davidodari.androidtmdb.features.movies
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -46,6 +47,11 @@ class MoviesViewModel @Inject constructor(
                     delay(REQUEST_QUEUE_DELAY)
                     val result = searchMoviesByTitleUseCase(movieScreenIntent.query)
                     processResult(result)
+                }
+            }
+            is MoviesScreenIntent.DisplaySearchScreen -> {
+                setState {
+                    copy(isSearching = isSearching.not())
                 }
             }
         }

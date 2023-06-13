@@ -8,6 +8,8 @@ import javax.inject.Inject
 class RequestParametersProvider @Inject constructor() {
 
     private var currentPage = 1
+    var totalPages = 1
+
 
     fun getReleaseDateRange(): ReleaseDateRange {
         val currentYear = getCurrentYear()

@@ -29,11 +29,17 @@ fun AppNavigationGraph(
                         // TODO Have navigation intent
                         navController.navigate("${Destinations.MOVIE_DETAILS.route}/${movie.id}")
                     },
-                    onErrorAction = {
+                    onErrorActionClicked = {
                         viewModel.processIntent(MoviesScreenIntent.LoadLatestMovies)
                     },
                     onLoadMore = {
                         viewModel.processIntent(MoviesScreenIntent.LoadLatestMovies)
+                    },
+                    onSearch = { query ->
+                        viewModel.processIntent(MoviesScreenIntent.SearchMovies(query))
+                    },
+                    onSearchActionClicked = {
+                        viewModel.processIntent(MoviesScreenIntent.DisplaySearchScreen)
                     }
                 )
             }

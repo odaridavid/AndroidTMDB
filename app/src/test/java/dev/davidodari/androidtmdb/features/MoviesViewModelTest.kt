@@ -15,6 +15,8 @@ import org.junit.Test
 import dev.davidodari.androidtmdb.core.Result
 import dev.davidodari.androidtmdb.core.usecases.DefaultSearchMoviesByTitleUseCase
 import dev.davidodari.androidtmdb.core.usecases.SearchMoviesByTitleUseCase
+import dev.davidodari.androidtmdb.data.movies.DefaultMoviesRepository
+import dev.davidodari.androidtmdb.data.movies.remote.api.RemoteDataSource
 import dev.davidodari.androidtmdb.fakeSuccessMappedResponse
 import dev.davidodari.androidtmdb.features.movies.MoviesScreenIntent
 import dev.davidodari.androidtmdb.features.movies.MoviesScreenState
@@ -114,7 +116,7 @@ class MoviesViewModelTest {
     fun `when we search for movies and it is found, then display the movie list`() =
         runTest {
             val movieRepository = mockk<MovieRepository> {
-                coEvery { fetchLatestMovies() } returns Result.Success(fakeSuccessMappedResponse)
+                coEvery { fetchLatestMovies(fromCache = true) } returns Result.Success(fakeSuccessMappedResponse)
             }
 
             val movieListUseCase =
@@ -146,9 +148,11 @@ class MoviesViewModelTest {
     @Test
     fun `when we search for movies and it is not found, then display the empty state`() =
         runTest {
-            val movieRepository = mockk<MovieRepository> {
-                coEvery { fetchLatestMovies() } returns Result.Success(fakeSuccessMappedResponse)
+            val dataSource = mockk<RemoteDataSource> {
+                coEvery { getLatestMovies(fromCache = true) } returns fakeSuccessMappedResponse
             }
+
+            val movieRepository = DefaultMoviesRepository(remoteDataSource = dataSource)
             val movieListUseCase =
                 DefaultGetLatestMovieListUseCase(movieRepository = movieRepository)
             val searchUseCase =
@@ -170,6 +174,39 @@ class MoviesViewModelTest {
 
             viewModel.state.test {
                 awaitItem() // skip the initial state
+                awaitItem().also { state ->
+                    Truth.assertThat(state).isEqualTo(expectedState)
+                }
+            }
+        }
+
+    @Test
+    fun `when we init the search state, then display the search bar`() =
+        runTest {
+            val movieRepository = mockk<MovieRepository> {
+                coEvery { fetchLatestMovies() } returns Result.Success(fakeSuccessMappedResponse)
+            }
+            val movieListUseCase =
+                DefaultGetLatestMovieListUseCase(movieRepository = movieRepository)
+            val searchUseCase =
+                DefaultSearchMoviesByTitleUseCase(moviesRepository = movieRepository)
+
+            val viewModel = createViewModel(
+                getLatestMoviesListUseCase = movieListUseCase,
+                searchMoviesByTitleUseCase = searchUseCase
+            )
+
+            viewModel.processIntent(MoviesScreenIntent.DisplaySearchScreen)
+
+
+            val expectedState = MoviesScreenState(
+                isLoading = false,
+                movies = fakeSuccessMappedResponse.movies,
+                errorMsg = null,
+                isSearching = true
+            )
+
+            viewModel.state.test {
                 awaitItem().also { state ->
                     Truth.assertThat(state).isEqualTo(expectedState)
                 }

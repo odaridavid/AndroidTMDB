@@ -1,6 +1,9 @@
 ## AndroidTMDB App
 
-This is a simple Android app that uses the [TMDB API](https://www.themoviedb.org/documentation/api) to display a continuous list of latest movies from the beginning of the year to the current date and their details.
+This is a simple Android app that uses the [TMDB API](https://www.themoviedb.org/documentation/api) to display a 
+continuous list of latest movies from the beginning of the year to the current date and their details.
+
+Also enables searching for movies by title on the already fetched list.
 
 *Pre-requisites*
 - Built on A.S Hedgehog 2023.1.1 Canary 7
@@ -61,7 +64,6 @@ This provides reusable components that will save development time and also provi
 
 ### Todos
 
-- Implement a search feature.
 - Implement a favorites feature.
 - Setup a CI/CD pipeline with release & debug builds, code coverage, linting, and static analysis
 - Implement local caching of data using Room.
@@ -71,15 +73,15 @@ This provides reusable components that will save development time and also provi
 
 ### Screenshots(Light Theme)
 
-| Movie List | Movie Details | Empty State                                 |
-|------------|---------------|---------------------------------------------|
-|![Movie List](screenshots/movie_list.png)|![Movie Details](screenshots/movie_details.png)| ![Empty State](screenshots/empty_light.png) |
+| Movie List | Movie Details | Empty State                                 | Search Screen                                   | Search Screen    (Empty)                              |
+|------------|---------------|---------------------------------------------|-------------------------------------------------|-------------------------------------------------------|
+|![Movie List](screenshots/movie_list.png)|![Movie Details](screenshots/movie_details.png)| ![Empty State](screenshots/empty_light.png) | ![Search Screen](screenshots/search_screen.png) | ![Search Screen](screenshots/search_screen_empty.png) |
 
 ### Screenshots(Dark Theme)
 
-| Movie List                                     | Movie Details                                        | Empty State                                          |
-|------------------------------------------------|------------------------------------------------------|------------------------------------------------------------|
-| ![Movie List](screenshots/movie_list_dark.png) | ![Movie Details](screenshots/movie_details_dark.png) |![Empty State](screenshots/empty_dark.png) |
+| Movie List                                     | Movie Details                                        | Empty State                                          | Search Screen                                        | Search Screen    (Empty)                                   |
+|------------------------------------------------|------------------------------------------------------|------------------------------------------------------------|------------------------------------------------------|------------------------------------------------------------|
+| ![Movie List](screenshots/movie_list_dark.png) | ![Movie Details](screenshots/movie_details_dark.png) |![Empty State](screenshots/empty_dark.png) | ![Search Screen](screenshots/search_screen_dark.png) | ![Search Screen](screenshots/search_screen_empty_dark.png) |
 
 
 

@@ -17,7 +17,10 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import retrofit2.Response
 import dev.davidodari.androidtmdb.core.Result
+import dev.davidodari.androidtmdb.core.model.Movies
+import dev.davidodari.androidtmdb.data.movies.remote.utils.MoviesPaginationStore
 import dev.davidodari.androidtmdb.fakeSuccessMappedResponse
+import dev.davidodari.androidtmdb.movie1
 import okhttp3.ResponseBody.Companion.toResponseBody
 import java.io.IOException
 
@@ -185,6 +188,41 @@ class MoviesRepositoryTest {
             Truth.assertThat((movies as Result.Error).errorType).isEqualTo(ErrorType.IO_CONNECTION)
         }
 
+    @Test
+    fun `when we fetch from cache ,then return expected response`() = runTest {
+        // Given
+        coEvery {
+            mockMoviesApiService.getLatestMovies(
+                any(),
+                any(),
+                any(),
+                any(),
+                any()
+            )
+        } returns Response.success(fakeSuccessMovieResponse)
+
+        val remoteDataSource = createRemoteDataSource(
+            moviesApiService = mockMoviesApiService,
+            requestParametersProvider = RequestParametersProvider()
+        )
+
+        val moviesRepository = createMoviesRepository(
+            remoteDataSource = remoteDataSource
+        )
+
+        // When
+        val movies = moviesRepository.fetchLatestMovies(fromCache = true)
+
+        // Then
+        val expectedCacheResponse = Movies(
+            currentPage = 1,
+            totalPages = 1,
+            movies = emptyList()
+        )
+
+        Truth.assertThat(movies).isInstanceOf(Result.Success::class.java)
+        Truth.assertThat((movies as Result.Success).data).isEqualTo(expectedCacheResponse)
+    }
     // endregion
 
     // region Helper methods

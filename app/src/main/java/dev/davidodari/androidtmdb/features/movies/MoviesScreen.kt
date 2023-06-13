@@ -11,7 +11,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -25,26 +31,52 @@ import dev.davidodari.androidtmdb.designsystem.widgets.LoadingScreen
 import dev.davidodari.androidtmdb.designsystem.widgets.MovieListDescription
 import dev.davidodari.androidtmdb.designsystem.widgets.MovieListPoster
 import dev.davidodari.androidtmdb.designsystem.widgets.MovieListTitle
+import dev.davidodari.androidtmdb.designsystem.widgets.SearchBar
 
 @Composable
 fun MoviesScreen(
     state: MoviesScreenState,
     onMovieSelected: (Movie) -> Unit,
-    onErrorAction: () -> Unit,
-    onLoadMore: () -> Unit
+    onErrorActionClicked: () -> Unit,
+    onLoadMore: () -> Unit,
+    onSearch: (String) -> Unit,
+    onSearchActionClicked: () -> Unit
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
-        Headline(
-            title = stringResource(R.string.latest_movies),
-            modifier = Modifier.padding(Padding.Medium)
-        )
+        Row {
+            if (state.isSearching) {
+                SearchBar(
+                    onSearch = { query ->
+                        onSearch(query)
+                    },
+                    modifier = Modifier.padding(Padding.Small)
+                )
+            } else {
+                Headline(
+                    title = stringResource(R.string.latest_movies),
+                    modifier = Modifier.padding(Padding.Medium)
+                )
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            IconButton(
+                onClick = {
+                   onSearchActionClicked()
+                },
+                modifier = Modifier.padding(Padding.Small)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = stringResource(id = R.string.search_hint)
+                )
+            }
+        }
 
         if (state.isLoading) {
             LoadingScreen()
         } else if (state.errorMsg != null) {
             Spacer(modifier = Modifier.weight(0.5f))
             ErrorScreen(errorMsg = state.errorMsg, errorActionTitle = R.string.error_retry) {
-                onErrorAction()
+                onErrorActionClicked()
             }
             Spacer(modifier = Modifier.weight(0.5f))
         } else {
@@ -75,7 +107,7 @@ private fun MovieListContent(
 
     val scrollContext = rememberScrollContext(listState)
 
-    if (scrollContext.isBottom) {
+    if (scrollContext.isBottom && !state.isSearching) {
         onLoadMore()
     }
 

@@ -4,5 +4,5 @@ import dev.davidodari.androidtmdb.core.model.Movies
 
 interface RemoteDataSource {
 
-    suspend fun getLatestMovies(): Movies
+    suspend fun getLatestMovies(fromCache:Boolean): Movies
 }

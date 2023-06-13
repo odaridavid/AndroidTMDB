@@ -7,7 +7,8 @@ data class MoviesScreenState(
     // todo ui model for movie
     val movies: List<Movie> = emptyList(),
     val isLoading: Boolean = false,
-    @StringRes val errorMsg: Int? = null
+    @StringRes val errorMsg: Int? = null,
+    val isSearching: Boolean = false
 ) {
     fun onMoviesLoaded(movies: List<Movie>): MoviesScreenState {
         return copy(movies = movies, isLoading = false, errorMsg = null)

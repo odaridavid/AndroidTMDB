@@ -5,4 +5,6 @@ sealed class MoviesScreenIntent {
     object LoadLatestMovies : MoviesScreenIntent()
 
     data class SearchMovies(val query: String) : MoviesScreenIntent()
+
+    object DisplaySearchScreen : MoviesScreenIntent()
 }

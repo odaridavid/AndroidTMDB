@@ -5,6 +5,6 @@ import dev.davidodari.androidtmdb.core.model.Movies
 
 interface MovieRepository {
 
-    suspend fun fetchLatestMovies(): Result<Movies>
+    suspend fun fetchLatestMovies(fromCache: Boolean = false): Result<Movies>
 
 }

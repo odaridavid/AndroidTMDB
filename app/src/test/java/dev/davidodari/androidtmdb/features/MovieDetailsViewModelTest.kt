@@ -71,7 +71,7 @@ class MovieDetailsViewModelTest {
             isLoading = false,
             errorMsg = null,
             movieId = 1,
-            title = "Fake Movie",
+            title = "The One",
             overview = "Fake Movie Overview",
             posterUrl = "https://image.tmdb.org/t/p/w185/fake_poster_path",
             backdropUrl = "https://image.tmdb.org/t/p/w780/fake_backdrop_path",
