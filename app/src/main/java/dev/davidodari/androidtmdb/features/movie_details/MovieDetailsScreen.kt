@@ -1,5 +1,8 @@
 package dev.davidodari.androidtmdb.features.movie_details
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
@@ -21,7 +24,7 @@ import dev.davidodari.androidtmdb.designsystem.widgets.MovieDetailsTitle
 import dev.davidodari.androidtmdb.designsystem.widgets.TopBar
 
 // TODO Show poster on the side of title.
-// TODO Animate state changes
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MovieDetailsScreen(
     state: MovieDetailsScreenState,
@@ -33,19 +36,21 @@ fun MovieDetailsScreen(
             TopBar(onBackPressed = onBackPressed)
         }
     ) { padding ->
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(padding)
-        ) {
-            if (state.isLoading) {
-                LoadingScreen()
-            } else if (state.errorMsg != null) {
-                ErrorScreen(errorMsg = state.errorMsg, errorActionTitle = R.string.error_retry) {
-                    onErrorAction()
+        AnimatedContent(targetState = state, label = "Movie Detail Animate") {state->
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(padding)
+            ) {
+                if (state.isLoading) {
+                    LoadingScreen()
+                } else if (state.errorMsg != null) {
+                    ErrorScreen(errorMsg = state.errorMsg, errorActionTitle = R.string.error_retry) {
+                        onErrorAction()
+                    }
+                } else {
+                    MovieDetailsContent(state)
                 }
-            } else {
-                MovieDetailsContent(state)
             }
         }
     }

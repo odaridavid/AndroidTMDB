@@ -1,6 +1,5 @@
 package dev.davidodari.androidtmdb.core.usecases
 
-import android.util.Log
 import dev.davidodari.androidtmdb.core.Result
 import dev.davidodari.androidtmdb.core.api.MovieRepository
 import dev.davidodari.androidtmdb.core.model.Movies

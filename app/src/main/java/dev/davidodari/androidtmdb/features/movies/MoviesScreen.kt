@@ -1,5 +1,7 @@
 package dev.davidodari.androidtmdb.features.movies
 
+import androidx.compose.animation.Crossfade
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
@@ -44,23 +46,25 @@ fun MoviesScreen(
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         Row {
-            if (state.isSearching) {
-                SearchBar(
-                    onSearch = { query ->
-                        onSearch(query)
-                    },
-                    modifier = Modifier.padding(Padding.Small)
-                )
-            } else {
-                Headline(
-                    title = stringResource(R.string.latest_movies),
-                    modifier = Modifier.padding(Padding.Medium)
-                )
+            Crossfade(targetState = state.isSearching, label = "Headline Crossfade") {
+                if (it) {
+                    SearchBar(
+                        onSearch = { query ->
+                            onSearch(query)
+                        },
+                        modifier = Modifier.padding(Padding.Small)
+                    )
+                } else {
+                    Headline(
+                        title = stringResource(R.string.latest_movies),
+                        modifier = Modifier.padding(Padding.Medium)
+                    )
+                }
             }
             Spacer(modifier = Modifier.weight(1f))
             IconButton(
                 onClick = {
-                   onSearchActionClicked()
+                    onSearchActionClicked()
                 },
                 modifier = Modifier.padding(Padding.Small)
             ) {
@@ -89,6 +93,7 @@ fun MoviesScreen(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun MovieListContent(
     state: MoviesScreenState,
@@ -99,7 +104,7 @@ private fun MovieListContent(
 
     LazyColumn(state = listState) {
         items(state.movies) { movie ->
-            MovieItem(movie = movie) { selectedMovie ->
+            MovieItem(movie = movie, modifier = Modifier.animateItemPlacement()) { selectedMovie ->
                 onMovieSelected(selectedMovie)
             }
         }
@@ -115,9 +120,13 @@ private fun MovieListContent(
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun MovieItem(movie: Movie, onMovieSelected: (Movie) -> Unit) {
+private fun MovieItem(
+    movie: Movie,
+    modifier: Modifier = Modifier,
+    onMovieSelected: (Movie) -> Unit
+) {
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(Padding.Small),
         onClick = { onMovieSelected(movie) }
