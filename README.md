@@ -67,7 +67,6 @@ This provides reusable components that will save development time and also provi
 - Implement a favorites feature.
 - Setup a CI/CD pipeline with release & debug builds, code coverage, linting, and static analysis
 - Implement local caching of data using Room.
-- Animation of the UI.
 - UI/E2E tests
 - Crash reporting
 
